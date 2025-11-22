@@ -247,6 +247,41 @@ class AdminFunctions
         $row = mysqli_fetch_assoc($query);
         return $row ? (int)$row['total'] : 0;
     }
+
+    // Delete Order (deletes order items then order) 
+    public function deleteOrder($connect, $order_id)
+    {
+        $order_id = mysqli_real_escape_string($connect, $order_id);
+        if (empty($order_id)) {
+            return false;
+        }
+
+        // Start transaction
+        if (function_exists('mysqli_begin_transaction')) {
+            mysqli_begin_transaction($connect);
+        }
+
+        // Delete related order items first (if table exists)
+        $q1 = "DELETE FROM `ec_order_items` WHERE `order_id` = '$order_id'";
+        if (!mysqli_query($connect, $q1)) {
+            if (function_exists('mysqli_rollback')) { mysqli_rollback($connect); }
+            return false;
+        }
+
+        // Delete order
+        $q2 = "DELETE FROM `ec_orders` WHERE `order_id` = '$order_id' LIMIT 1";
+        if (!mysqli_query($connect, $q2)) {
+            if (function_exists('mysqli_rollback')) { mysqli_rollback($connect); }
+            return false;
+        }
+
+        // Commit
+        if (function_exists('mysqli_commit')) {
+            mysqli_commit($connect);
+        }
+
+        return true;
+    }
 }
 
 ?>
