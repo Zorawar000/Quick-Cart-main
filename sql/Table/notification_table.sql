@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2025 at 02:22 PM
+-- Generation Time: Nov 22, 2025 at 04:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -50,7 +50,12 @@ INSERT INTO `notification_table` (`id`, `user_id`, `display`, `title`, `descript
 (6, 'User1000', 1, 'Profile Update Notification', 'Your Profile is Update', NULL, 0),
 (7, 'User1000', 0, NULL, NULL, NULL, 0),
 (8, 'User1000', 0, NULL, NULL, NULL, 0),
-(9, 'User1000', 0, NULL, NULL, NULL, 0);
+(9, 'User1000', 0, NULL, NULL, NULL, 0),
+(10, 'User1000', 0, NULL, NULL, NULL, 0),
+(11, 'User1000', 0, NULL, NULL, NULL, 0),
+(12, 'User1000', 0, NULL, NULL, NULL, 0),
+(13, 'User1000', 0, NULL, NULL, NULL, 0),
+(14, 'User1000', 0, NULL, NULL, NULL, 0);
 
 --
 -- Indexes for dumped tables
@@ -70,7 +75,7 @@ ALTER TABLE `notification_table`
 -- AUTO_INCREMENT for table `notification_table`
 --
 ALTER TABLE `notification_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

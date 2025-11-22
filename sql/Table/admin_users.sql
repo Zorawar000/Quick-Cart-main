@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2025 at 02:20 PM
+-- Generation Time: Nov 22, 2025 at 04:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -45,7 +45,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `admin_id`, `username`, `email`, `password`, `full_name`, `status`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 'ADMIN001', 'admin', 'admin@quickcart.com', '$2y$10$rwusimsxDEp.JwMhxlP/z.ynnY3lguYUV30gnJfLIPup9ySmFIc8a', 'Super Administrator', 1, '2025-10-07 15:39:10', '2025-10-03 06:17:47', '2025-10-07 10:09:10');
+(1, 'ADMIN001', 'admin', 'admin@quickcart.com', '$2y$10$rwusimsxDEp.JwMhxlP/z.ynnY3lguYUV30gnJfLIPup9ySmFIc8a', 'Super Administrator', 1, '2025-11-07 21:03:34', '2025-10-03 06:17:47', '2025-11-07 15:33:34');
 
 --
 -- Indexes for dumped tables

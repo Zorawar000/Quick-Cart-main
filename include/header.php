@@ -65,7 +65,9 @@
 
 <body class="index-page">
 
-  <header id="header" class="header sticky-top">
+  <!-- <header id="header" class="header sticky-top"> -->
+    
+  <header id="header" class="header">
 
     <div class="topbar d-flex align-items-center light-background">
       <div class="container d-flex justify-content-center justify-content-md-between">

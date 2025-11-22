@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2025 at 02:21 PM
+-- Generation Time: Nov 22, 2025 at 04:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -38,13 +38,6 @@ CREATE TABLE `my_cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `my_cart`
---
-
-INSERT INTO `my_cart` (`id`, `cart_id`, `user_id`, `pro_id`, `quantity`, `total_pro_price`, `created_at`) VALUES
-(1, 41554, 'User1000', 71419, 1, 1500.00, '2025-10-09 12:15:00');
-
---
 -- Indexes for dumped tables
 --
 
@@ -62,7 +55,7 @@ ALTER TABLE `my_cart`
 -- AUTO_INCREMENT for table `my_cart`
 --
 ALTER TABLE `my_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
