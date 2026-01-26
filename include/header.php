@@ -128,9 +128,7 @@
                                 <ul>
                                   <li class="dropdown"><a href="#"><span> My Account </span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                     <ul>
-                                      <li><a href="#">My Profile</a></li>
-                                      <li><a href="#">Edit Profile</a></li>
-                                      <li><a href="#">Change Password</a></li>
+                                      <li><a href="myaccount.php">My Profile</a></li>
                                       <li><a href="logout.php">Log out</a></li>
                                     </ul>
                                   </li>

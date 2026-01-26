@@ -110,6 +110,8 @@ $users = mysqli_query($connect, $sql);
                      </div>
                   </nav>
                   <?php endif; ?>
+                  
+                  <a href="index.php" class="btn btn-primary">Back To Dashboard</a>
                </div> <!-- white_card_body -->
             </div> <!-- white_card -->
          </div>

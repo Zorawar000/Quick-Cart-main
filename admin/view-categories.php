@@ -121,6 +121,7 @@
          </div>
          <div class="col-12"></div>
       </div>
+      <a href="index.php" class="btn btn-primary">Back To Dashboard</a>
    </div>
 </div>
 <?php include("include/footer.php");?>

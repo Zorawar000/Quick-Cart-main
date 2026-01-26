@@ -122,6 +122,19 @@
                   <li><a href="user-list.php">User List</a></li>
                </ul>
             </li>
+            
+            <li class>
+               <a class="has-arrow" href="#" aria-expanded="false">
+                  <div class="icon_menu">
+                     <img src="./asset/img/menu-icon/2.svg" alt>
+                  </div>
+                  <span>Banner</span>
+               </a>
+               <ul>
+                  <li><a href="add-banner.php">Add Banner</a></li>
+                  <li><a href="view-banner.php">View Banner</a></li>
+               </ul>
+            </li>
          </ul>
       </nav>
       <section class="main_content dashboard_part large_header_bg">

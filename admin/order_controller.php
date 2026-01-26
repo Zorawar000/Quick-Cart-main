@@ -1,5 +1,5 @@
 <?php
-<?php
+
 // Controller to handle order actions (delete)
 include_once("../db.php");
 include_once("AdminFunctions.php");

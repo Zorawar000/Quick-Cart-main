@@ -78,9 +78,9 @@ $total_orders = $admin->countOrders($connect);
                         <h5>Quick Actions</h5>
                         <div class="d-flex gap-3 flex-wrap mt-2">
                             <a href="add-products.php" class="btn btn-success">Add New Product</a>
-                            <a href="product_list.php" class="btn btn-primary">Manage Products</a>
-                            <a href="category_list.php" class="btn btn-warning">Manage Categories</a>
-                            <a href="subcategory_list.php" class="btn btn-info">Manage Subcategories</a>
+                            <a href="view-products.php" class="btn btn-primary">Manage Products</a>
+                            <a href="view-categories.php" class="btn btn-warning">Manage Categories</a>
+                            <a href="view-sub-categories.php" class="btn btn-info">Manage Subcategories</a>
                             <a href="orders.php" class="btn btn-dark">View Orders</a>
                         </div>
                     </div>

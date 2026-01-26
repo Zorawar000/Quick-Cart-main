@@ -458,9 +458,36 @@
                 return !empty($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             }
 
+            public function contact_us($connect)
+            {
+            
+                $name = mysqli_real_escape_string($connect,$_POST['name']);
+                $email = mysqli_real_escape_string($connect,$_POST['email']);
+                $subject = mysqli_real_escape_string($connect,$_POST['subject']);
+                $message = mysqli_real_escape_string($connect,$_POST['message']);
+                $created_at = date('M d, Y');
+
+
+                
+
+                $register_insert = "INSERT INTO `contact_us`(`name`,`email`,`subject`,`message`,`created_at`) VALUES('".$name."','".$email."','".$subject."','".$message."','".$created_at."')";
+
+                $register_sql = mysqli_query($connect,$register_insert);
+                
+                if($register_sql)
+                {
+                    echo 1;
+                }
+                else
+                {
+                    //echo 0;
+                    echo mysqli_error($connect);
+                }
+            }
 
 
         }
+
 
 
 

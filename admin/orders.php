@@ -119,6 +119,7 @@ if(empty($_SESSION['admin_username'])){
                         <?php endif; ?>
                     </div>
                 </div>
+                <a href="index.php" class="btn btn-primary">Back To Dashboard</a>
             </div>
         </div>
     </div>

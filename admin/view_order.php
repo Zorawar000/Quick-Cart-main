@@ -89,6 +89,7 @@ $items_q = mysqli_query($connect, "SELECT i.*, p.pro_name, p.pro_image FROM ec_o
             </div>
           </div>
         </div>
+        <a href="index.php" class="btn btn-primary">Back To Dashboard</a>
       </div>
     </div>
   </div>
