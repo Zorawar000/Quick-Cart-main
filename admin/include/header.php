@@ -133,6 +133,8 @@
                <ul>
                   <li><a href="add-banner.php">Add Banner</a></li>
                   <li><a href="view-banner.php">View Banner</a></li>
+                  <li><a href="add-banner-type.php">Add Banner Type</a></li>
+                  <li><a href="view-banner-type.php">View Banner Type</a></li>
                </ul>
             </li>
          </ul>

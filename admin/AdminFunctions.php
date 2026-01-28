@@ -282,6 +282,135 @@ class AdminFunctions
 
         return true;
     }
+    // Add Banner Type
+    public function addBannerType($connect)
+    {
+        //print_r($_POST); die;
+
+        $banner_type_id     = mt_rand(11111, 99999);
+        $banner_type        = mysqli_real_escape_string($connect, $_POST['banner_type']);
+        $page_name          = mysqli_real_escape_string($connect, $_POST['page_name']);
+        $banner_positions   = mysqli_real_escape_string($connect, $_POST['banner_positions']);
+        $banner_type_desc = mysqli_real_escape_string($connect, $_POST['banner_type_desc']);
+        $status             = mysqli_real_escape_string($connect, $_POST['status']);
+
+        $added_on           = date('Y-m-d H:i:s');
+        $slug_url           = $this->generateSlug($banner_type);
+
+        $sql = "INSERT INTO `ec_banner_types`(`banner_type_id`,`banner_type`,`page_name`,`banner_positions`,`banner_type_desc`,`status`,`banner_slug_url`,`added_on`)VALUES('".$banner_type_id."','".$banner_type."','".$page_name."','".$banner_positions."','".$banner_type_desc."','".$status."','".$slug_url."','".$added_on."')";
+
+        $check = mysqli_query($connect, $sql);
+
+        if ($check) {
+            echo 1;
+        } else {
+            echo mysqli_error($connect); // debugging ke liye
+        }
+    }
+    // Get Active Banner Types (for add-banner dropdown)
+    public function getActiveBannerTypes($connect)
+    {
+        $sql = "SELECT banner_type_id,banner_type,page_name,banner_positions FROM ec_banner_types WHERE status = 1 ORDER BY id DESC";
+
+        return mysqli_query($connect, $sql);
+    }
+
+    // Add Banner (Auto generated preview URL)
+    public function addBanner($connect)
+    {
+        // ---------- Server-side validation ----------
+        if (
+            empty($_POST['banner_name']) ||
+            empty($_POST['banner_type_id_ref']) ||
+            empty($_POST['status'])
+        ) {
+            echo "Required fields missing";
+            exit;
+        }
+
+        // ---------- Basic data ----------
+        $banner_id      = mt_rand(11111, 99999);
+        $banner_name    = mysqli_real_escape_string($connect, $_POST['banner_name']);
+        $banner_type_id_ref = mysqli_real_escape_string($connect, $_POST['banner_type_id_ref']);
+        $status         = mysqli_real_escape_string($connect, $_POST['status']);
+        $added_on       = date('Y-m-d H:i:s');
+
+        // ---------- Image upload ----------
+        if (!isset($_FILES['banner_image']) || $_FILES['banner_image']['name'] == '') {
+            echo "Please select banner image";
+            exit;
+        }
+
+        $img_name = time() . '_' . basename($_FILES['banner_image']['name']);
+        $tmp_name = $_FILES['banner_image']['tmp_name'];
+        $uploadDir = "../uploads/";
+        $path = $uploadDir . $img_name;
+
+        if (!move_uploaded_file($tmp_name, $path)) {
+            echo "Image upload failed";
+            exit;
+        }
+
+        // ---------- Auto redirect URL ----------
+        $today = date('Ymd');
+        $redirect_url = "banner-view.php?bid=$banner_id&img=$img_name&d=$today";
+
+        // ---------- Insert query ----------
+        $sql = "INSERT INTO ec_banners
+                (
+                    banner_id,
+                    banner_name,
+                    banner_type_id_ref,
+                    banner_image,
+                    redirect_url,
+                    status,
+                    added_on
+                )
+                VALUES
+                (
+                    '$banner_id',
+                    '$banner_name',
+                    '$banner_type_id_ref',
+                    '$img_name',
+                    '$redirect_url',
+                    '$status',
+                    '$added_on'
+                )";
+
+        $check = mysqli_query($connect, $sql);
+
+        if ($check) {
+            echo 1;
+        } else {
+            echo mysqli_error($connect);
+        }
+    }
+
+    // Get All Banners (List Page)
+    public function getAllBanners($connect)
+    {
+        $sql = "SELECT                 
+                b.id AS banner_b_id,
+                b.banner_id,
+                b.banner_name,
+                b.banner_image,
+                b.redirect_url,
+
+                bt.id AS banner_t_id,
+                bt.banner_type_id,
+                bt.banner_type,
+                bt.page_name,
+                bt.banner_positions,
+                bt.status AS type_status,
+                bt.added_on AS type_added_on
+                FROM ec_banners b
+                LEFT JOIN ec_banner_types bt 
+                    ON b.banner_type_id_ref = bt.banner_type_id
+                ORDER BY b.id DESC";
+
+        return mysqli_query($connect, $sql);
+    }
+
 }
 
 ?>
