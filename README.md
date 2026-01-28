@@ -74,6 +74,13 @@ This allows:
 - `ec_banner_types`
 - `ec_banners`
 - `admin_users`
+- `contact_us`
+- `ec_orders`
+- `ec_order_items`
+- `my_cart`
+- `last_login_logout_table`
+- `new_project_table`
+- `notification_table`
 
 ---
 
@@ -83,7 +90,7 @@ This allows:
 - **Database:** MySQL
 - **Frontend:** HTML, CSS, Bootstrap
 - **JavaScript:** jQuery, AJAX
-- **Editor:** CKEditor
+- **Editor:** VS Code (Visual Studio Code), XAMPP
 - **Version Control:** Git & GitHub
 
 ---
@@ -102,7 +109,7 @@ Quick-Cart-main/
 │ └── AdminFunctions.php
 │
 ├── uploads/
-│ └── banners/ (ignored in Git)
+│ └── banners/ 
 │
 ├── sql/
 │ └── Table/
@@ -112,11 +119,6 @@ Quick-Cart-main/
 
 ---
 
-## ⚠️ Important Notes
-
-- `uploads/` folder is ignored in GitHub using `.gitignore`
-- Image files are not pushed to the repository
-- Banner preview URLs are auto-generated server-side
 
 ---
 
@@ -128,6 +130,16 @@ Quick-Cart-main/
 - Role-based Admin Permissions
 
 ---
+
+
+## For User Testing 
+Usename :- hemraj@gmail.com
+password :- hemraj@123
+
+
+## For User Testing 
+Usename :- admin@quickcart.com
+password :- admin@123
 
 ## 👨‍💻 Author
 
