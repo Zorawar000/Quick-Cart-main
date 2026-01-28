@@ -1,114 +1,141 @@
-# Quick-Cart
+# 🛒 QuickCart – PHP eCommerce Project
 
-Quick-Cart is a PHP based e-commerce web application. It lets customers browse products, manage their carts, place orders, and track notifications. Admin users can manage categories, sub-categories, products, and customers from a dedicated back office.
-
-## Main Features
-
-- User registration and login with hashed passwords
-- Product catalog with category filtering and carousel view
-- Shopping cart with quantity updates and AJAX actions
-- Checkout page with order summary
-- Order history with item-level details
-- Profile management, notifications, and password change
-- Admin panel for categories, sub-categories, products, orders, and users
-
-## Technology Stack
-
-- PHP 8 (procedural + simple classes)
-- MySQL / MariaDB
-- Bootstrap 5 and custom CSS
-- jQuery and AJAX utilities
-
-## Prerequisites
-
-- PHP 8.x and MySQL/MariaDB server (XAMPP or similar works well)
-- Web server configured to serve this project directory
-
-## Project Structure (Highlights)
-
-```
-Quick-Cart-main/
-├── index.php                 # Public landing page
-├── db.php                    # Database connection (shared)
-├── include/                  # Shared header, footer, dashboards
-├── admin/                    # Admin panel pages and assets
-├── assets/                   # Front-end assets
-├── js/, css/, images/        # Additional front-end resources
-└── sql/                      # Database schema dump files
-```
-
-## Database Setup
-
-1. Create a database named `new_project` (or adjust the name in `db.php`).
-2. Import the schema dumps from the `sql/Table/` directory. Recommended order:
-   - `new_project_table.sql`
-   - `ec_categories.sql`
-   - `ec_sub_categories.sql`
-   - `ec_products.sql`
-   - `my_cart.sql`
-   - `ec_orders.sql`
-   - `ec_order_items.sql`
-   - `notification_table.sql`
-   - `last_login_logout_table.sql`
-   - `admin_users.sql`
-3. The admin dump seeds a default admin user with username `admin` and password `admin123`.
-
-## Environment Configuration
-
-Open `db.php` and update these values if your database credentials differ:
-
-```php
-$host = "localhost";
-$user = "root";
-$password = "";
-$db_name = "new_project";
-```
-
-## Install Dependencies
-
-Currently there are no Composer dependencies required for this project.
-
-## Running the Project
-
-1. Place the project inside your server root (e.g., `htdocs/Quick-Cart-main`).
-2. Start Apache and MySQL services.
-3. Visit `http://localhost/Quick-Cart-main/` in your browser.
-4. Register a new customer account or log in with an existing one.
-5. Access the admin panel at `http://localhost/Quick-Cart-main/admin/login.php` using the seeded admin credentials.
-
-### Test Accounts
-
-- **Customer (for testing):**
-  - Name: Hemraj Prajapati
-  - Email: `hemraj@gmail.com`
-  - Password: `12345`
-
-- **Admin:**
-  - Username: `admin`
-  - Password: `admin@123`
-
-## Usage Notes
-
-- Customers can add items to the cart only after logging in.
-- Cart actions (add, update, remove) send AJAX requests to `cart_controller.php`.
-- Orders placed through checkout update the cart and populate order tables (ensure any custom order logic is implemented).
-- Notifications are stored in `notification_table` and can be marked read/unread.
-
-## Troubleshooting
-
-- **Blank pages or errors:** enable PHP error reporting and check Apache logs.
-- **Database errors:** confirm credentials in `db.php` and that all tables were imported.
-- **Assets not loading:** ensure the project path matches the URLs in header/footer includes.
-- **Mail sending:** email integration is not configured; add your preferred mail service if needed.
-
-## Future Improvements (Ideas)
-
-- Add payment gateway integration on checkout.
-- Implement email/SMS notifications.
-- Add inventory management and stock alerts.
-- Create automated tests for cart and order flows.
+QuickCart is a Core PHP based eCommerce web application with an Admin Panel for managing products, categories, banners, and site content.  
+This project is built for learning, practice, and real-world CMS style development.
 
 ---
 
-Maintained with ❤️ by the Quick-Cart team.
+## 🚀 Features Implemented
 
+### 🔐 Admin Panel
+- Secure Admin Login (Password Hashing)
+- Admin Profile & Password Change
+- Session-based Authentication
+
+---
+
+### 📦 Product Management
+- Add / View Products
+- Category & Sub-Category Management
+- Product Image Upload
+- Product Status (Active / Inactive)
+
+---
+
+### 🏷️ Banner Type Management
+- Add Banner Types
+- Assign Banner Type to Pages:
+  - Home Page
+  - About Page
+  - Contact Page
+  - Product Page
+- Banner Positions:
+  - **1 → Top**
+  - **2 → Middle**
+  - **3 → Bottom**
+- Banner Type Description (CKEditor)
+- Status Management (Active / Inactive)
+
+---
+
+### 🖼️ Banner Management (NEW)
+- Add Banners with Image Upload
+- Relate Banner with Banner Type
+- Auto-generated Banner Preview URL
+- Banner List with:
+  - Banner Name
+  - Banner Type
+  - Page Name
+  - Position (Top / Middle / Bottom)
+  - Status
+  - Added Date
+- Clickable Preview Link for Each Banner
+
+---
+
+### 🔗 Auto Banner Preview System
+Each banner automatically generates a preview URL like:
+
+banner-view.php?bid=XXXXX&img=imagename.jpg&d=YYYYMMDD
+
+This allows:
+- Secure banner preview
+- Separate banner display page
+- Easy testing without frontend integration
+
+---
+
+## 🗂️ Database Structure
+
+### Tables Used
+- `ec_categories`
+- `ec_sub_categories`
+- `ec_products`
+- `ec_banner_types`
+- `ec_banners`
+- `admin_users`
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Core PHP (OOP)
+- **Database:** MySQL
+- **Frontend:** HTML, CSS, Bootstrap
+- **JavaScript:** jQuery, AJAX
+- **Editor:** CKEditor
+- **Version Control:** Git & GitHub
+
+---
+
+## 📁 Project Structure
+
+Quick-Cart-main/
+│
+├── admin/
+│ ├── add-banner.php
+│ ├── add-banner-type.php
+│ ├── view-banner.php
+│ ├── banner-view.php
+│ ├── banner_controller.php
+│ ├── banner_type_controller.php
+│ └── AdminFunctions.php
+│
+├── uploads/
+│ └── banners/ (ignored in Git)
+│
+├── sql/
+│ └── Table/
+│
+└── README.md
+
+
+---
+
+## ⚠️ Important Notes
+
+- `uploads/` folder is ignored in GitHub using `.gitignore`
+- Image files are not pushed to the repository
+- Banner preview URLs are auto-generated server-side
+
+---
+
+## 📌 Future Enhancements (Planned)
+- Banner Status Toggle (AJAX)
+- Banner Edit & Delete
+- Page-wise Banner Display (Frontend)
+- Banner Expiry Date
+- Role-based Admin Permissions
+
+---
+
+## 👨‍💻 Author
+
+**Rizwan Zorawar**  
+Core PHP Developer | Learning ASP.NET & Advanced Backend Concepts
+
+---
+
+## ⭐ GitHub
+
+If you find this project useful, don’t forget to ⭐ star the repository!
