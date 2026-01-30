@@ -395,12 +395,16 @@ class AdminFunctions
                 b.banner_name,
                 b.banner_image,
                 b.redirect_url,
+                b.status,
+                b.added_on,
 
                 bt.id AS banner_t_id,
                 bt.banner_type_id,
                 bt.banner_type,
                 bt.page_name,
                 bt.banner_positions,
+                bt.banner_type_desc,
+                bt.banner_slug_url,
                 bt.status AS type_status,
                 bt.added_on AS type_added_on
                 FROM ec_banners b
@@ -410,6 +414,97 @@ class AdminFunctions
 
         return mysqli_query($connect, $sql);
     }
+
+    public function getAllBannersType($connect)
+    {
+        $sql = "SELECT * FROM ec_banner_types";
+        return mysqli_query($connect, $sql);
+    }
+
+    // Get Single Banner Type By ID
+    public function getBannerTypeById($connect, $banner_type_id)
+    {
+        $banner_type_id = mysqli_real_escape_string($connect, $banner_type_id);
+        $sql = "SELECT * FROM ec_banner_types WHERE banner_type_id = '$banner_type_id' LIMIT 1";
+        return mysqli_query($connect, $sql);
+    }
+
+    // Update Banner Type
+    public function updateBannerType($connect)
+    {
+        //print_r($_POST); die;
+
+        $banner_type_id   = mysqli_real_escape_string($connect, $_POST['banner_type_id']);
+        $page_name        = mysqli_real_escape_string($connect, $_POST['page_name']);
+        $banner_type      = mysqli_real_escape_string($connect, $_POST['banner_type']);
+        $banner_positions = mysqli_real_escape_string($connect, $_POST['banner_positions']);
+        $banner_type_desc = mysqli_real_escape_string($connect, $_POST['banner_type_desc']);
+        $status           = mysqli_real_escape_string($connect, $_POST['status']);
+
+        $sql = "UPDATE ec_banner_types SET
+                    page_name = '$page_name',
+                    banner_type = '$banner_type',
+                    banner_positions = '$banner_positions',
+                    banner_type_desc = '$banner_type_desc',
+                    status = '$status'
+                WHERE banner_type_id = '$banner_type_id'";
+
+        $check = mysqli_query($connect, $sql);
+
+        if ($check) {
+            echo 1;
+        } else {
+            echo mysqli_error($connect);
+        }
+    }
+
+    // Get single banner by banner_id
+    public function getBannerById($connect, $banner_id)
+    {
+        $banner_id = mysqli_real_escape_string($connect, $banner_id);
+
+        $sql = "SELECT * FROM ec_banners WHERE banner_id = '$banner_id' LIMIT 1";
+        return mysqli_query($connect, $sql);
+    }
+
+    // Update banner
+    public function updateBanner($connect)
+    {
+        $banner_id          = mysqli_real_escape_string($connect, $_POST['banner_id']);
+        $banner_name        = mysqli_real_escape_string($connect, $_POST['banner_name']);
+        $banner_type_id_ref = mysqli_real_escape_string($connect, $_POST['banner_type_id_ref']);
+        $status             = mysqli_real_escape_string($connect, $_POST['status']);
+
+        // Image handling
+        $image_sql = "";
+
+        if (isset($_FILES['banner_image']) && $_FILES['banner_image']['name'] != '') {
+            $img_name = time() . '_' . basename($_FILES['banner_image']['name']);
+            $tmp_name = $_FILES['banner_image']['tmp_name'];
+            $path = "../uploads/" . $img_name;
+
+            move_uploaded_file($tmp_name, $path);
+
+            $image_sql = ", banner_image = '$img_name'";
+        }
+
+        $sql = "UPDATE ec_banners SET
+                    banner_name = '$banner_name',
+                    banner_type_id_ref = '$banner_type_id_ref',
+                    status = '$status'
+                    $image_sql
+                WHERE banner_id = '$banner_id'";
+
+        $check = mysqli_query($connect, $sql);
+
+        if ($check) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 
 }
 

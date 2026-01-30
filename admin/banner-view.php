@@ -17,6 +17,9 @@ if (!file_exists($imagePath)) {
 <html>
 <head>
     <title>Banner Preview</title>
+      <link rel="icon" href="./asset/img/Quick-Cart-logo.png" type="image/png">
+      <link rel="stylesheet" href="./asset/css/bootstrap1.min.css" />
+      <?php include("include/links.php"); ?>
     <style>
         body{
             margin:0;

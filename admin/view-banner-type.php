@@ -6,7 +6,7 @@
        exit();
    }
    
-   $banners = $admin->getAllBanners($connect);
+   $banners = $admin->getAllBannersType($connect);
    ?>
 <div class="main_content_iner">
    <div class="container-fluid p-0 sm_padding_15px">
@@ -23,14 +23,14 @@
                         <thead class="thead-light">
                            <tr>
                               <th>#</th>
-                              <th>Banner ID</th>
+                              <th>Banner Type ID</th>
                               <th>Banner Name</th>
                               <th>Banner Type</th>
                               <th>Banner Positions</th>
-                              <th>Page Name</th>
-                              <th>Banner Image Preview</th>
-                              <th>Banner Status</th>
-                              <th>Banner Added On</th>
+                              <th>Banner Description</th>
+                              <th>Banner Type Slug URL</th>
+                              <th>Status</th>
+                              <th>Added On</th>
                               <th>Actions</th>
                            </tr>
                         </thead>
@@ -40,8 +40,8 @@
                               while($row = mysqli_fetch_assoc($banners)) { ?>
                            <tr>
                               <td><?php echo $i++; ?></td>
-                              <td><?php echo htmlspecialchars($row['banner_id']); ?></td>
-                              <td><?php echo htmlspecialchars($row['banner_name']); ?></td>
+                              <td><?php echo htmlspecialchars($row['banner_type_id']); ?></td>
+                              <td><?php echo htmlspecialchars($row['page_name']); ?></td>
                               <td><?php echo htmlspecialchars($row['banner_type']); ?></td>
                               <td>
                                     <?php
@@ -56,16 +56,11 @@
                                         }
                                     ?>
                                 </td>
+                                <td>
+                                <?= ucfirst(strip_tags($row['banner_type_desc'])); ?>
+                                </td>
 
-                              <td><?php echo ucfirst($row['page_name']); ?></td>
-                              <!-- Preview -->
-                              <td>
-                                 <a href="<?php echo $row['redirect_url']; ?>" 
-                                    target="_blank"
-                                    class="btn btn-info btn-sm">
-                                 View
-                                 </a>
-                              </td>
+                              <td><?php echo htmlspecialchars($row['banner_slug_url']); ?></td>
                               <!-- Status -->
                               <td>
                                  <?php if($row['status'] == 1){ ?>
@@ -76,22 +71,22 @@
                               </td>
                               <td><?php echo date('d M Y', strtotime($row['added_on'])); ?></td>
                               <td>
-                                 <a href="edit-banner.php?id=<?= $row['banner_id']; ?>" 
+                                 <a href="edit-banner-type.php?id=<?= $row['banner_type_id']; ?>" 
                                     class="btn btn-sm btn-warning">
-                                    <i class="fa fa-edit"></i>
+                                     <i class="fa fa-edit"></i> Edit
                                  </a>
 
                                  <button 
                                     class="btn btn-sm btn-danger"
-                                    onclick="deleteBanner('<?= $row['banner_id']; ?>')">  
-                                    <i class="fa fa-trash"></i> Delete
+                                    onclick="deleteBannerType('<?= $row['banner_type_id']; ?>')">
+                                     <i class="fa fa-trash"></i> Delete
                                  </button>
-                              </td>
+                               </td>
 
                            </tr>
                            <?php } } else { ?>
                            <tr>
-                              <td colspan="7" class="text-center text-danger">
+                              <td colspan="10" class="text-center text-danger">
                                  No banners found
                               </td>
                            </tr>
@@ -109,7 +104,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-function deleteBanner(bannerId) {
+function deleteBannerType(bannerTypeId) {
     Swal.fire({
         title: 'Are you sure?',
         text: "This banner will be permanently deleted!",
@@ -120,7 +115,7 @@ function deleteBanner(bannerId) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "delete-banner.php?id=" + bannerId;
+            window.location.href = "delete-banner-type.php?id=" + bannerTypeId;
         }
     });
 }
