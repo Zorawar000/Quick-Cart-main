@@ -248,40 +248,69 @@ class AdminFunctions
         return $row ? (int)$row['total'] : 0;
     }
 
-    // Delete Order (deletes order items then order) 
+    /**
+     * Delete Order with Enhanced Transaction Support
+     * Deletes order items first, then deletes the order
+     * If any query fails, all changes are rolled back
+     * Compatible with all PHP/MySQL versions
+     * 
+     * @param mysqli $connect - Database connection
+     * @param mixed $order_id - Order ID to delete
+     * @return bool - True on success, False on failure
+     */
     public function deleteOrder($connect, $order_id)
     {
         $order_id = mysqli_real_escape_string($connect, $order_id);
+        
+        // Validate order_id
         if (empty($order_id)) {
             return false;
         }
 
-        // Start transaction
-        if (function_exists('mysqli_begin_transaction')) {
-            mysqli_begin_transaction($connect);
-        }
+        // Get current autocommit setting
+        $result = mysqli_query($connect, "SELECT @@autocommit");
+        $row = mysqli_fetch_array($result);
+        $autocommit_was_on = ($row[0] == 1);
 
-        // Delete related order items first (if table exists)
-        $q1 = "DELETE FROM `ec_order_items` WHERE `order_id` = '$order_id'";
-        if (!mysqli_query($connect, $q1)) {
-            if (function_exists('mysqli_rollback')) { mysqli_rollback($connect); }
+        // Turn off autocommit
+        mysqli_query($connect, "SET autocommit=0");
+
+        try {
+            // Delete related order items first
+            $delete_items = "DELETE FROM `ec_order_items` WHERE `order_id` = '$order_id'";
+            if (!mysqli_query($connect, $delete_items)) {
+                throw new Exception("Failed to delete order items: " . mysqli_error($connect));
+            }
+
+            // Delete order
+            $delete_order = "DELETE FROM `ec_orders` WHERE `order_id` = '$order_id' LIMIT 1";
+            if (!mysqli_query($connect, $delete_order)) {
+                throw new Exception("Failed to delete order: " . mysqli_error($connect));
+            }
+
+            // Commit transaction if both queries succeed
+            mysqli_query($connect, "COMMIT");
+            
+            // Restore autocommit setting
+            if ($autocommit_was_on) {
+                mysqli_query($connect, "SET autocommit=1");
+            }
+            
+            return true;
+
+        } catch (Exception $e) {
+            // Rollback on any error
+            mysqli_query($connect, "ROLLBACK");
+            
+            // Restore autocommit setting
+            if ($autocommit_was_on) {
+                mysqli_query($connect, "SET autocommit=1");
+            }
+            
             return false;
         }
-
-        // Delete order
-        $q2 = "DELETE FROM `ec_orders` WHERE `order_id` = '$order_id' LIMIT 1";
-        if (!mysqli_query($connect, $q2)) {
-            if (function_exists('mysqli_rollback')) { mysqli_rollback($connect); }
-            return false;
-        }
-
-        // Commit
-        if (function_exists('mysqli_commit')) {
-            mysqli_commit($connect);
-        }
-
-        return true;
     }
+
     // Add Banner Type
     public function addBannerType($connect)
     {
